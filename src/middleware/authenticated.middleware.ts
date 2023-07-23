@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import token from '@/utils/token';
-import UserModel from '@/resources/user/user.model';
-import Token from '@/utils/interfaces/token.interface';
-import HttpException from '@/utils/exceptions/http.exception';
+import token from '../utils/token';
+import UserModel from "../resources/user/user.model";
+import Token from '../utils/interfaces/token.interface';
+import HttpException from '../utils/exceptions/http.exception';
 import jwt from 'jsonwebtoken';
 
 async function authenticatedMiddleware(
@@ -34,7 +34,7 @@ async function authenticatedMiddleware(
             return next(new HttpException(401, 'Unauthorised'));
         }
 
-        req.user = user;
+        (<any>req) = user;
 
         return next();
     } catch (error) {
